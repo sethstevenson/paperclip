@@ -17,7 +17,7 @@ import { relativeTime, cn, agentRouteRef, agentUrl } from "../lib/utils";
 import { PageTabBar } from "../components/PageTabBar";
 import { Tabs } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
-import { Bot, Plus, List, GitBranch, SlidersHorizontal } from "lucide-react";
+import { Bot, Plus, List, GitBranch, SlidersHorizontal, MessageSquare } from "lucide-react"; // CUSTOM: agent-chat added MessageSquare
 import { AGENT_ROLE_LABELS, type Agent } from "@paperclipai/shared";
 
 const adapterLabels: Record<string, string> = {
@@ -272,6 +272,16 @@ export function Agents() {
                         <StatusBadge status={agent.status} />
                       </span>
                     </div>
+                    {/* CUSTOM: agent-chat */}
+                    <Link
+                      to={`${agentUrl(agent)}/chat`}
+                      onClick={(e) => e.stopPropagation()}
+                      className="shrink-0"
+                    >
+                      <Button variant="ghost" size="icon" className="h-7 w-7" title="Chat with agent">
+                        <MessageSquare className="h-3.5 w-3.5" />
+                      </Button>
+                    </Link>
                   </div>
                 }
               />
@@ -374,6 +384,18 @@ function OrgTreeNode({
             <span className="w-20 flex justify-end">
               <StatusBadge status={node.status} />
             </span>
+            {/* CUSTOM: agent-chat */}
+            {agent && (
+              <Link
+                to={`${agentUrl(agent)}/chat`}
+                onClick={(e) => e.stopPropagation()}
+                className="shrink-0"
+              >
+                <Button variant="ghost" size="icon" className="h-7 w-7" title="Chat with agent">
+                  <MessageSquare className="h-3.5 w-3.5" />
+                </Button>
+              </Link>
+            )}
           </div>
         </div>
       </Link>
