@@ -2,12 +2,12 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 import { useParams, useNavigate } from "@/lib/router";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { agentsApi } from "../../ui/src/api/agents";
-import { useBreadcrumbs } from "../../ui/src/context/BreadcrumbContext";
-import { useCompany } from "../../ui/src/context/CompanyContext";
+import { agentsApi } from "../../api/agents";
+import { useBreadcrumbs } from "../../context/BreadcrumbContext";
+import { useCompany } from "../../context/CompanyContext";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Send } from "lucide-react";
-import { cn, agentRouteRef, agentUrl } from "../../ui/src/lib/utils";
+import { cn, agentRouteRef, agentUrl } from "../../lib/utils";
 import { agentChatApi, type AgentChatMessage } from "./api";
 
 const POLL_INTERVAL_MS = 2500;

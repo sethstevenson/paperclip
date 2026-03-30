@@ -1,5 +1,5 @@
 // CUSTOM: agent-chat — typed API client for direct agent chat routes (SETA-55/57)
-import { api } from "../../ui/src/api/client";
+import { api } from "../../api/client";
 
 export interface AgentChat {
   id: string;

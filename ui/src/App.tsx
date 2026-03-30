@@ -43,7 +43,7 @@ import { BoardClaimPage } from "./pages/BoardClaim";
 import { CliAuthPage } from "./pages/CliAuth";
 import { InviteLandingPage } from "./pages/InviteLanding";
 import { NotFoundPage } from "./pages/NotFound";
-import { AgentChatPage } from "../../custom/agent-chat/AgentChatPage"; // CUSTOM: agent-chat
+import { AgentChatPage } from "./custom/agent-chat/AgentChatPage"; // CUSTOM: agent-chat
 import { queryKeys } from "./lib/queryKeys";
 import { useCompany } from "./context/CompanyContext";
 import { useDialog } from "./context/DialogContext";
