@@ -24,32 +24,23 @@ Manual local CLI mode (outside heartbeat runs): use `paperclipai agent local-cli
 
 When `PAPERCLIP_WAKE_REASON=direct_chat_message`, a board member has sent you a direct message. Handle it immediately before the normal heartbeat procedure — no issue checkout needed.
 
-1. **Read the chat context.** The wake payload includes `chatId`, `messageId`, and `recentMessages` (last 20 messages, chronological order). You can also fetch fresh history:
-   ```
-   GET /api/agents/{agentId}/chats/{chatId}/messages?limit=20
-   ```
+1. **Get the chat ID.** It is available as `$PAPERCLIP_CHAT_ID`. If for some reason it is not set, fall back to `GET /api/agents/{agentId}/chats` to retrieve the active chat.
 
-2. **Compose a response.** Read the conversation, stay in character as yourself, and write a helpful, concise reply. Use your memory files and agent identity for context. Keep responses conversational — this is a quick chat, not a formal issue update.
+2. **Fetch recent messages:**
+   ```bash
+   curl -s "$PAPERCLIP_API_URL/api/agents/$PAPERCLIP_AGENT_ID/chats/$PAPERCLIP_CHAT_ID/messages?limit=20" \
+     -H "Authorization: Bearer $PAPERCLIP_API_KEY"
+   ```
 
 3. **Post your reply:**
+   ```bash
+   curl -s -X POST "$PAPERCLIP_API_URL/api/agents/$PAPERCLIP_AGENT_ID/chats/$PAPERCLIP_CHAT_ID/messages" \
+     -H "Authorization: Bearer $PAPERCLIP_API_KEY" \
+     -H "Content-Type: application/json" \
+     -d "{\"body\": \"your reply\"}"
    ```
-   POST /api/agents/{agentId}/chats/{chatId}/messages
-   { "body": "your reply here" }
-   ```
-   Use your own `PAPERCLIP_AGENT_ID` for `agentId`.
 
-4. **Exit cleanly.** Do not checkout any issues, do not update task statuses. After posting the reply, the heartbeat is complete.
-
-**Example:**
-```bash
-CHAT_ID="<chatId from payload>"
-REPLY="Happy to help! Here is what I know about..."
-
-curl -s -X POST "$PAPERCLIP_API_URL/api/agents/$PAPERCLIP_AGENT_ID/chats/$CHAT_ID/messages" \
-  -H "Authorization: Bearer $PAPERCLIP_API_KEY" \
-  -H "Content-Type: application/json" \
-  -d "{\"body\": \"$REPLY\"}"
-```
+4. **Exit cleanly.** No issue checkout needed.
 
 ---
 
