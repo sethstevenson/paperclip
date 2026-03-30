@@ -184,6 +184,16 @@ export async function execute(ctx: AdapterExecutionContext): Promise<AdapterExec
   if (approvalId) env.PAPERCLIP_APPROVAL_ID = approvalId;
   if (approvalStatus) env.PAPERCLIP_APPROVAL_STATUS = approvalStatus;
   if (linkedIssueIds.length > 0) env.PAPERCLIP_LINKED_ISSUE_IDS = linkedIssueIds.join(",");
+  const chatId =
+    typeof context.chatId === "string" && context.chatId.trim().length > 0
+      ? context.chatId.trim()
+      : null;
+  const chatMessageId =
+    typeof context.messageId === "string" && context.messageId.trim().length > 0
+      ? context.messageId.trim()
+      : null;
+  if (chatId) env.PAPERCLIP_CHAT_ID = chatId;
+  if (chatMessageId) env.PAPERCLIP_CHAT_MESSAGE_ID = chatMessageId;
   if (workspaceCwd) env.PAPERCLIP_WORKSPACE_CWD = workspaceCwd;
   if (workspaceSource) env.PAPERCLIP_WORKSPACE_SOURCE = workspaceSource;
   if (workspaceId) env.PAPERCLIP_WORKSPACE_ID = workspaceId;

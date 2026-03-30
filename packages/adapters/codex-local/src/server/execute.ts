@@ -313,6 +313,14 @@ export async function execute(ctx: AdapterExecutionContext): Promise<AdapterExec
   const linkedIssueIds = Array.isArray(context.issueIds)
     ? context.issueIds.filter((value): value is string => typeof value === "string" && value.trim().length > 0)
     : [];
+  const chatId =
+    typeof context.chatId === "string" && context.chatId.trim().length > 0
+      ? context.chatId.trim()
+      : null;
+  const chatMessageId =
+    typeof context.messageId === "string" && context.messageId.trim().length > 0
+      ? context.messageId.trim()
+      : null;
   if (wakeTaskId) {
     env.PAPERCLIP_TASK_ID = wakeTaskId;
   }
@@ -330,6 +338,12 @@ export async function execute(ctx: AdapterExecutionContext): Promise<AdapterExec
   }
   if (linkedIssueIds.length > 0) {
     env.PAPERCLIP_LINKED_ISSUE_IDS = linkedIssueIds.join(",");
+  }
+  if (chatId) {
+    env.PAPERCLIP_CHAT_ID = chatId;
+  }
+  if (chatMessageId) {
+    env.PAPERCLIP_CHAT_MESSAGE_ID = chatMessageId;
   }
   if (effectiveWorkspaceCwd) {
     env.PAPERCLIP_WORKSPACE_CWD = effectiveWorkspaceCwd;
