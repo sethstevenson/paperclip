@@ -70,6 +70,7 @@ import {
   ArrowLeft,
   HelpCircle,
   FolderOpen,
+  MessageSquare, // CUSTOM: agent-chat
 } from "lucide-react";
 import { Collapsible, CollapsibleTrigger, CollapsibleContent } from "@/components/ui/collapsible";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -825,6 +826,12 @@ export function AgentDetail() {
           </div>
         </div>
         <div className="flex items-center gap-1 sm:gap-2 shrink-0">
+          {/* CUSTOM: agent-chat */}
+          <Link to={`/agents/${canonicalAgentRef}/chat`} className="shrink-0">
+            <Button variant="ghost" size="icon" className="h-8 w-8" title="Chat with agent">
+              <MessageSquare className="h-3.5 w-3.5" />
+            </Button>
+          </Link>
           <Button
             variant="outline"
             size="sm"
